@@ -1,0 +1,18 @@
+{
+	"item_filter": {
+		"sound": "stone"
+	},
+	"item_pipe": {
+		"sound": "wood"
+	},
+	"item_pusher": {
+		"sound": "metal"
+	},
+	"industrik:cable": {
+		"sound": "cloth"
+	},
+	"industrik:piston_energy_converter": {
+		"sound": "stone",
+		"textures": "piston_energy_converter"
+	}
+}
