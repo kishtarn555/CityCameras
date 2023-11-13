@@ -14,6 +14,8 @@ const beforeOrbitPause=4*20;
 const orbitCenter =new CVector(3821.0, -15.00, 5908);
 const orbitStart = new CVector(3938, 15.00, 5908);
 const orbitTime= 7*20;
+const orbitChangePause=1*20;
+const YOrbitDuration=3*20;
 
 function fanOutScene(director:CameraDirector) {
     const linearPath = new LinearPath(startPosition, orbitStart);
@@ -48,14 +50,14 @@ function orbitScene (director:CameraDirector) {
     const YOrbitData:OrbitData = {
         center:orbitCenter,
         radius: UpPos.sub(orbitCenter),
-        arcLength:-Math.PI/3
+        arcLength:-Math.PI*0.2
     };
     director.addCamera({
-        duration:20*1,
+        duration:orbitChangePause,
         camera:"pause"
     });
     director.addCamera({
-        duration:3*20,
+        duration:YOrbitDuration,
         camera:getOrbitYCamera(
             Kishtarn(),
             YOrbitData,            
