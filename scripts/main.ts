@@ -1,8 +1,8 @@
 import { system } from "@minecraft/server";
 import { Addon } from "./connectTogether";
-import { industrikAddon } from "./industrik/addon";
+import cityCameras from "./city_cameras/addon";
 
-const addons:Addon[] = [industrikAddon]
+const addons:Addon[] = [cityCameras]
 
 
 for (let addon of addons) {

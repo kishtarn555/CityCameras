@@ -1,10 +1,10 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Industrik",
-		"description": "Industrial mod",
-		"uuid": "fb62da51-d230-4143-b7e7-54da5cbe9b3e",
-		"version": [0, 0, 1],
+		"name": "City Cameras",
+		"description": "City Cameras mod",
+		"uuid": "f6b07c08-16e4-48eb-a607-908b7266003a",
+		"version": [1, 0, 0],
 		"min_engine_version": [1, 20, 30]
 	},
 	"modules": [
@@ -12,21 +12,25 @@
 			"description": "Script resources",
 			"language": "javascript",
 			"type": "script",
-			"uuid": "b8e58331-d1a6-4aec-8cb2-122757b4e753",
-			"version": [0, 0, 1],
+			"uuid": "c83b67a7-5184-405a-bd67-3aa0a67bbae5",
+			"version": [1, 0, 0],
 			"entry": "scripts/main.js"
 		},
 		{
 			"description": "Debug items",
 			"type": "data",
-			"uuid": "e8dc59f0-8b18-4674-a082-4ea08416f11a",
+			"uuid": "e3856b8b-9464-49c7-b6b6-ecaf9887fe6d",
 			"version": [1, 0, 0]
 		}
 	],
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.7.0-beta"
+			"version": "1.6.0"
+		},
+		{
+			"uuid": "678576f3-08fe-493e-bcb3-ea5d8908ce13",
+			"version":[1,0,0]
 		}
 	],
 	"metadata": {

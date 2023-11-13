@@ -1,10 +1,4 @@
 {
 	"texture_data": {
-		"energy_nugget": {
-			"textures": "textures/items/energy_nugget.png"
-		},		
-		"energy_cell": {
-			"textures": "textures/items/energy_cell.png"
-		}
 	}
 }
