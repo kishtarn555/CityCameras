@@ -1,4 +1,4 @@
-import { CameraDefaultOptions, CameraSetFacingOptions, CameraSetLocationOptions, CameraSetPosOptions, CameraSetRotOptions } from "@minecraft/server";
+import { CameraDefaultOptions, CameraSetFacingOptions, CameraSetLocationOptions, CameraSetPosOptions, CameraSetRotOptions, Player } from "@minecraft/server";
 import { CVector } from "../vector";
 
 
@@ -7,15 +7,19 @@ import { CVector } from "../vector";
 type CameraTransformations =  CameraDefaultOptions | CameraSetFacingOptions | CameraSetLocationOptions | CameraSetPosOptions | CameraSetRotOptions
 
 
-interface CityCameraTransform {
+export interface CityCameraTransform {
     cameraPreset:string,
     transformation:CameraTransformations
     playerLocation?:CVector
 
 }
 
-abstract class CityCamera {
-    player:
+export abstract class CityCamera {
+    player:Player;
+
+    constructor(player:Player) {
+        this.player = player;
+    }
     /**
      * 
      * @param t represents the time of the camera, it ranges [0, 1]re
