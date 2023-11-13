@@ -2,7 +2,7 @@ import { EasingType, Player, system, world } from "@minecraft/server";
 import { SceneCamera, SceneCameraTransform } from "./camera/sceneCamera";
 interface ScriptElement {
     duration:number,
-    camera:SceneCamera
+    camera:SceneCamera|"pause"
 }
 
 export class CameraDirector {
@@ -30,7 +30,7 @@ export class CameraDirector {
             return;
         }        
         this.goToCamera(0);
-        await new Promise<void>((resolve,_)=>system.runTimeout(resolve, 50));
+        await new Promise<void>((resolve,_)=>system.runTimeout(resolve, 10));
         let nextElement = 0;
         let camera = this.cameras[0].camera;
         let nextChange = 0;
@@ -38,21 +38,24 @@ export class CameraDirector {
         let duration =this.cameras[0].duration;
         for (let tick = 0; tick < this.totalDuration; tick++) {
             await new Promise<void>((resolve,_)=>system.run(resolve));
-            if (tick=== nextChange) {
+            if (tick >= nextChange) {
                 this.goToCamera(nextElement);
                 camera = this.cameras[nextElement].camera;
-                let duration = this.cameras[nextElement].duration;
-                nextChange = tick + duration; 
+                duration = this.cameras[nextElement].duration;
+                elementStartTick=nextChange;
+                nextChange = nextChange + duration; 
                 nextElement++;                
-                elementStartTick=tick;
                 
                 continue;
             }
-            let t = (tick - elementStartTick)/duration;
-            world.sendMessage(t.toFixed(3));
+            if (camera==="pause") continue;
+            let t = (tick - elementStartTick)/(duration-1);
+            t=Math.min(t,1);
+            t=Math.max(t,0);
+            // world.sendMessage(t.toFixed(3));
             this.applyState(camera.player,camera.getState(t), true);
         }
-        await new Promise<void>((resolve,_)=>system.runTimeout(resolve, 50));
+        await new Promise<void>((resolve,_)=>system.runTimeout(resolve, 10));
         for (let player of this.players) {
             player.camera.clear();
         }
@@ -61,7 +64,8 @@ export class CameraDirector {
 
     private goToCamera(idx:number) {
         let camera = this.cameras[idx].camera;
-        this.applyState(camera.player,camera.getState(0), false);
+        if (camera==="pause") return;
+        this.applyState(camera.player,camera.getState(0), true);
     }
     private applyState(player:Player,transform:SceneCameraTransform, ease:boolean) {
         let cameraTransform = transform.transformation;

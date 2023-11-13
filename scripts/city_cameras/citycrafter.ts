@@ -1,14 +1,17 @@
-import { Player, system, world } from "@minecraft/server";
+import { Camera, Player, system, world } from "@minecraft/server";
 import { CameraDirector } from "./Director";
 import { StaticCamera } from "./camera/staticCamera";
 import { CVector } from "./vector";
 import { FpsCamera } from "./camera/fpsCamera";
+import { getOrbitCamera } from "./camera/orbitCamera";
+import * as ease from "./Easing/easingFunctions";
+import { buildTheaterSHort } from "./episodes/shortTheater";
 
 
 const director:CameraDirector = new CameraDirector();
 const GamertagKishtan="kishtarn";
 
-function Kishtarn():Player {
+export function Kishtarn():Player {
     return world.getPlayers({
         name:GamertagKishtan
     })[0]
@@ -31,18 +34,12 @@ function RegisterRunCommand() {
 
 
 //This is a function I'll be changing for City Crafter YT Channel
-function BuildScript() {
-    director.addCamera({ 
-        camera:new StaticCamera(Kishtarn(), new CVector(3930,11,5905), new CVector(3889, 0, 5905)),
-        duration:10        
-    });
-    director.AddClear(Kishtarn())
-}
+
 
 
 export function CityCrafter() {
     RegisterRunCommand();
-    BuildScript();
+    buildTheaterSHort(director);
 
 
 }

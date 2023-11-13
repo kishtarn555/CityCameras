@@ -7,7 +7,7 @@ export interface OrbitData {
 
 }
 
-export class Orbit {
+export class OrbitY {
     center:CVector
     radius:CVector
     arcLength:number
@@ -31,9 +31,9 @@ export class Orbit {
     getPosition(t:number):CVector {
         const {r, theta, phi} = this.getPolar();
         const offset =t*this.arcLength;
-        const x = r * Math.sin(phi) * Math.cos(theta+offset);
-        const z = r * Math.sin(phi) * Math.sin(theta+offset);
-        const y = r * Math.cos(phi);
+        const x = r * Math.sin(phi+offset) * Math.cos(theta);
+        const z = r * Math.sin(phi+offset) * Math.sin(theta);
+        const y = r * Math.cos(phi+offset);
         return new CVector(x, y, z).add(this.center);
 
     }

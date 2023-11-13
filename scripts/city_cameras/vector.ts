@@ -58,6 +58,14 @@ export class CVector implements Vector3 {
         }
     }
 
+    scale(scalar:number) {
+        return new CVector(
+            this.x*scalar,
+            this.y*scalar,
+            this.z*scalar
+        )
+    }
+
     
 
 }
