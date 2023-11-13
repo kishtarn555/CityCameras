@@ -7,14 +7,14 @@ import { CVector } from "../vector";
 type CameraTransformations =  CameraDefaultOptions | CameraSetFacingOptions | CameraSetLocationOptions | CameraSetPosOptions | CameraSetRotOptions
 
 
-export interface CityCameraTransform {
+export interface SceneCameraTransform {
     cameraPreset:string,
     transformation:CameraTransformations
     playerLocation?:CVector
 
 }
 
-export abstract class CityCamera {
+export abstract class SceneCamera {
     player:Player;
 
     constructor(player:Player) {
@@ -25,5 +25,5 @@ export abstract class CityCamera {
      * @param t represents the time of the camera, it ranges [0, 1]re
      * @
      */
-    abstract getState(t:number):CityCameraTransform;
+    abstract getState(t:number):SceneCameraTransform;
 }

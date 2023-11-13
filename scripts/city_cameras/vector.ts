@@ -1,63 +1,63 @@
 import { Vector3 } from "@minecraft/server";
 
-
-export class CVector {
-    value: Vector3
+function instanceOfV3(object: any): object is Vector3 {
+    return 'x' in object &&'y' in object &&'z' in object ;
+}
+export class CVector implements Vector3 {
+    x: number
+    y: number
+    z: number
 
     constructor(x: number, y: number, z: number) {
-        this.value = { x: x, y: y, z: z };
+        this.x=x;
+        this.y=y;
+        this.z=z;
     }
 
     magnitude(): number {
         return Math.sqrt(
-            this.value.x * this.value.x +
-            this.value.y * this.value.y +
-            this.value.z * this.value.z
+            this.x * this.x +
+            this.y * this.y +
+            this.z * this.z
         );
     }
 
-    add(target: CVector | Vector3) {
-        if (target instanceof CVector) {
-            return new CVector(
-                this.value.x + target.value.x,
-                this.value.y + target.value.y,
-                this.value.z + target.value.z,
-            );
-        } else {
+    add(target: Vector3 | [number,number,number]) {
+        if (instanceOfV3(target)) {
 
             return new CVector(
-                this.value.x + target.x,
-                this.value.y + target.y,
-                this.value.z + target.z,
+                this.x + target.x,
+                this.y + target.y,
+                this.z + target.z,
+            )
+        } else {
+            return new CVector(
+                this.x + target[0],
+                this.y + target[1],
+                this.z + target[2],
             )
         }
     }
 
 
 
-    sub(target: CVector | Vector3) {
-        if (target instanceof CVector) {
-            return new CVector(
-                this.value.x - target.value.x,
-                this.value.y - target.value.y,
-                this.value.z - target.value.z,
-            );
-        } else {
+    sub(target: Vector3 | [number,number,number]) {
+        if (instanceOfV3(target)) {
 
             return new CVector(
-                this.value.x - target.x,
-                this.value.y - target.y,
-                this.value.z - target.z,
+                this.x - target.x,
+                this.y - target.y,
+                this.z - target.z,
+            )
+        } else {
+            return new CVector(
+                this.x - target[0],
+                this.y - target[1],
+                this.z - target[2],
             )
         }
     }
 
-    v3():Vector3 {
-        return {
-            x:this.value.x,
-            y:this.value.y,
-            z:this.value.z,
-        }
-    }
+    
 
 }
