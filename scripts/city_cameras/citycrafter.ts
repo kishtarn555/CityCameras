@@ -5,7 +5,8 @@ import { CVector } from "./vector";
 import { FpsCamera } from "./camera/fpsCamera";
 import { getOrbitCamera } from "./camera/orbitCamera";
 import * as ease from "./Easing/easingFunctions";
-import { buildTheaterSHort } from "./episodes/shortTheater";
+import { buildTheaterSHort } from "./episodes/shortTheater/shortTheater";
+import { buildTheaterShortIndoors } from "./episodes/shortTheater/shortTheater2";
 
 
 const director:CameraDirector = new CameraDirector();
@@ -39,7 +40,7 @@ function RegisterRunCommand() {
 
 export function CityCrafter() {
     RegisterRunCommand();
-    buildTheaterSHort(director);
+    buildTheaterShortIndoors(director);
 
 
 }

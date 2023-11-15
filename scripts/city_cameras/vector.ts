@@ -66,6 +66,40 @@ export class CVector implements Vector3 {
         )
     }
 
+    dot(target: Vector3 | [number,number,number]):number {
+        if (instanceOfV3(target)) {
+            return (
+                this.x * target.x +
+                this.y * target.y +
+                this.z * target.z
+            )
+            
+        } else {
+            return (
+                this.x * target[0]+
+                this.y * target[1]+
+                this.z * target[2]
+            );
+        }
+    }
+
+    normalized() {
+        const factor = this.magnitude();
+        return new CVector(
+            this.x/factor,
+            this.y/factor,
+            this.z/factor
+        )
+    }
+
+    toString() {
+        return `<${this.x}, ${this.y}, ${this.z}>`;
+    }
+
+    static zero():CVector {
+        return new CVector(0,0,0);
+    }
+
     
 
 }
