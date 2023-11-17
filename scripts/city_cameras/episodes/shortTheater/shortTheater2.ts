@@ -8,7 +8,7 @@ import { PathCamera } from "../../camera/pathCcamera";
 import { LinearPath } from "../../paths/linearPath";
 import { Orbit, OrbitData } from "../../paths/orbitSphere";
 import { EaseComposer, EaseComposerSegment } from "../../Easing/easeComposer";
-import { easeLerp } from "../../paths/lerp";
+import { easeLerp, lerp } from "../../paths/lerp";
 import { FreeOrbitData, OrbitFree } from "../../paths/freeOrbit";
 import { Player } from "@minecraft/server";
 
@@ -19,7 +19,6 @@ const timeline: [string, number][] = [
     ["lobbyPan", 22.0*20],
     ["talkAboutLobby", 23.0*20],
     ["goToSide1", 26.4*20],
-    ["goToSide2", 27.9*20],
     ["pan", 30.3*20],
     ["END",38.2*20],
 ];
@@ -55,11 +54,13 @@ const startLookAt2 = new CVector(3878, -20, 5910);
 const lobbyLookAt=new CVector(3868,-20,5922);
 const lobbyGoTo = new CVector(3882, -19.10, 5898);
 
-const sideGoTo1 = new CVector(3883, -19.3, 5920);
 const sideLookAt1 = new CVector(3883, -23, 5945);
 
-const sideGoTo2 = new CVector(3885, -19.64, 5934);
+const sideGoTo2 = new CVector(3885, -19.64, 5935);
 const sideLookAt2 = new CVector(3854, -22.5, 5939);
+
+const sidePanTarget = new CVector(3832, -19, 5935.5);
+const sidePanLookAt = new CVector(3878, -19.64, 5942);
 
 function panToDoor(director:CameraDirector) {
     const path = new LinearPath(startPoint, doorTarget);
@@ -104,13 +105,14 @@ function talkAboutLobby(director:CameraDirector) {
 }
 
 function goToSide(director:CameraDirector) {
-    const path = new LinearPath(lobbyGoTo, sideGoTo1);
+    const path = new LinearPath(lobbyGoTo, sideGoTo2);
     const eyesPath = new LinearPath(lobbyLookAt, sideLookAt1);    
+    const eyesPath2 = new LinearPath(sideLookAt1, sideLookAt2);
 
     const camera = new PathCamera(
         Kishtarn(),
         path.getPosition.bind(path),
-        eyesPath.getPosition.bind(eyesPath),
+        (t)=>CVector.lerp(eyesPath.getPosition(t),eyesPath2.getPosition(t),ease.easeInCubic(t)  ),
         ease.easeInOutCubic
         
     );
@@ -120,29 +122,32 @@ function goToSide(director:CameraDirector) {
         camera:camera
     });
 
-
-    const path2 = new LinearPath(sideGoTo1, sideGoTo2);
-    const eyesPath2 = new LinearPath(sideLookAt1, sideLookAt2);
-    const camera2 = new PathCamera(
-        Kishtarn(),
-        path.getPosition.bind(path2),
-        eyesPath.getPosition.bind(eyesPath2),
-        ease.easeInOutCubic
-        
-    );
-
-    director.addCamera({
-        duration:getDuration("goToSide2"),
-        camera:camera2
-    });
 }
 
+function panSide(director:CameraDirector) {
+    
+    const delta = sideLookAt2.sub(sideGoTo2);
+    
+    const delta2 = sidePanLookAt.sub(sideGoTo2);
+    const path = new LinearPath(sideGoTo2, sidePanTarget);
 
+    const camera = new PathCamera (
+        Kishtarn(),
+        path.getPosition.bind(path),
+        (t)=>path.getPosition(t).add( CVector.lerp(delta, delta2, Math.pow(t,1/2))   ),
+        ease.easeInOutCubic
+    )
+    director.addCamera({
+        duration:getDuration("pan"),
+        camera:camera
+    })
+}
 
 export function buildTheaterShortIndoors(director:CameraDirector) {
     panToDoor(director);
     panInLobby(director);
     talkAboutLobby(director);
     goToSide(director);
+    panSide(director);
     director.AddClear(Kishtarn())
 }

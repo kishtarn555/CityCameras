@@ -100,6 +100,10 @@ export class CVector implements Vector3 {
         return new CVector(0,0,0);
     }
 
+    static lerp(a:CVector, b:CVector, alpha:number) : CVector {
+        return a.scale(1-alpha).add(b.scale(alpha) );
+
+    }
     
 
 }
