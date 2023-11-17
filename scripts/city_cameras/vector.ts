@@ -1,6 +1,7 @@
 import { Vector3 } from "@minecraft/server";
 
 function instanceOfV3(object: any): object is Vector3 {
+    
     return 'x' in object &&'y' in object &&'z' in object ;
 }
 export class CVector implements Vector3 {

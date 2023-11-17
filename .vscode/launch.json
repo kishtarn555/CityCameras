@@ -1,0 +1,15 @@
+{
+    "version": "0.3.0",
+    "configurations": [
+      {
+        "type": "minecraft-js",
+        "request": "attach",
+        "name": "Wait for Minecraft Debug Connections",
+        "mode": "listen",
+        "localRoot": "${workspaceFolder}/scripts/",
+        "generatedSourceRoot": "${workspaceFolder}/build/behavior_packs/citycamerasbp/scripts/",
+        "sourceMapRoot": "${workspaceFolder}/build/behavior_packs/_citycamerasbpDebug",
+        "port": 19144
+      }
+    ]
+  }

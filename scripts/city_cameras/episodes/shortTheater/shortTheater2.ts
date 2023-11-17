@@ -1,7 +1,7 @@
 import { CameraDirector } from "../../Director";
 import { getOrbitCamera, getOrbitFreeCamera, getOrbitYCamera } from "../../camera/orbitCamera";
 import { StaticCamera } from "../../camera/staticCamera";
-import { Kishtarn } from "../../citycrafter";
+import { Kishtarn } from "../../citycrafter_const";
 import { CVector } from "../../vector";
 import * as ease from "../../Easing/easingFunctions"
 import { PathCamera } from "../../camera/pathCcamera";

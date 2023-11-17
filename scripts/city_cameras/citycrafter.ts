@@ -1,5 +1,4 @@
-import { Camera, Player, system, world } from "@minecraft/server";
-import { CameraDirector } from "./Director";
+import { Camera, system } from "@minecraft/server";
 import { StaticCamera } from "./camera/staticCamera";
 import { CVector } from "./vector";
 import { FpsCamera } from "./camera/fpsCamera";
@@ -7,16 +6,9 @@ import { getOrbitCamera } from "./camera/orbitCamera";
 import * as ease from "./Easing/easingFunctions";
 import { buildTheaterSHort } from "./episodes/shortTheater/shortTheater";
 import { buildTheaterShortIndoors } from "./episodes/shortTheater/shortTheater2";
+import { buildTheaterShortTheaterRoom } from "./episodes/shortTheater/shortTheater3";
+import { director } from "./citycrafter_const";
 
-
-const director:CameraDirector = new CameraDirector();
-const GamertagKishtan="kishtarn";
-
-export function Kishtarn():Player {
-    return world.getPlayers({
-        name:GamertagKishtan
-    })[0]
-}
 
 function RegisterRunCommand() {
     system.afterEvents.scriptEventReceive.subscribe(arg=> {
@@ -40,7 +32,7 @@ function RegisterRunCommand() {
 
 export function CityCrafter() {
     RegisterRunCommand();
-    buildTheaterShortIndoors(director);
+    buildTheaterShortTheaterRoom(director);
 
 
 }
