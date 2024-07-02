@@ -4,10 +4,9 @@ import { CVector } from "./vector";
 import { FpsCamera } from "./camera/fpsCamera";
 import { getOrbitCamera } from "./camera/orbitCamera";
 import * as ease from "./Easing/easingFunctions";
-import { buildTheaterSHort } from "./episodes/shortTheater/shortTheater";
-import { buildTheaterShortIndoors } from "./episodes/shortTheater/shortTheater2";
-import { buildTheaterShortTheaterRoom } from "./episodes/shortTheater/shortTheater3";
 import { director } from "./citycrafter_const";
+import { buildHotelScene1 } from "./episodes/shortHotel/shortHotel";
+import { buildHotelScene2 } from "./episodes/shortHotel/shortHotel.pool";
 
 
 function RegisterRunCommand() {
@@ -32,7 +31,7 @@ function RegisterRunCommand() {
 
 export function CityCrafter() {
     RegisterRunCommand();
-    buildTheaterShortTheaterRoom(director);
+    buildHotelScene2(director);
 
 
 }
