@@ -24,6 +24,13 @@ export class CameraDirector {
         this.players.push(player);
     }
 
+    Wait(seconds:number, unit:"seconds"|"ticks" = "seconds") {
+        this.addCamera({
+            camera:"pause",
+            duration:seconds*(unit==="seconds"?20:1)
+        })
+    }
+
     async runScript() {
         try {
             if (this.cameras.length ===0) {
