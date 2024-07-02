@@ -26,4 +26,21 @@ export abstract class SceneCamera {
      * @
      */
     abstract getState(t:number):SceneCameraTransform;
+
+
+
+    getFreezeFrame(t:number):SceneCamera {
+        return new class extends SceneCamera {
+            player:Player;
+            state: SceneCameraTransform;
+            constructor(self:SceneCamera, t:number) {
+                super(self.player);
+                this.player = self.player;
+                this.state = self.getState(t)
+            }
+            getState(t:number) {
+                return this.state;
+            }
+        }(this,t);
+    }
 }
